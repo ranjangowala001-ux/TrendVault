@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TrendVault by luxury.com — premium fashion, beauty, accessories and lifestyle products.">
+  <title>TrendVault | luxury.com</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
+
+    :root {
+      --black: #101010;
+      --dark: #171717;
+      --muted: #6d6d6d;
+      --line: #e9e9e9;
+      --soft: #f7f7f5;
+      --white: #fff;
+      --accent: #b48a42;
+      --green: #147a4b;
+      --red: #c54141;
+      --shadow: 0 14px 40px rgba(0,0,0,.07);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--white);
+      color: var(--black);
+      font-family: "DM Sans", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    img { display: block; width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, h4, p { margin-top: 0; }
+    .hidden { display: none !important; }
+    .container { width: min(1240px, calc(100% - 36px)); margin: auto; }
+    .view { display: none; min-height: 65vh; animation: reveal .35s ease; }
+    .view.active { display: block; }
+    @keyframes reveal { from { opacity: 0; transform: translateY(8px); } }
+
+    .announcement {
+      background: #101010;
+      color: #fff;
+      text-align: center;
+      padding: 9px 16px;
+      font-size: 12px;
+      letter-spacing: .08em;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .header-inner {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      font-family: "Manrope", sans-serif;
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -.06em;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .logo small {
+      margin-top: 4px;
+      color: #999;
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    nav { display: flex; align-items: center; gap: 23px; margin: auto; }
+    nav a {
+      position: relative;
+      font-size: 14px;
+      font-weight: 600;
+      color: #383838;
+      cursor: pointer;
+    }
+    nav a:after {
+      content: "";
+      position: absolute;
+      left: 0; right: 100%; bottom: -8px;
+      height: 2px; background: #111;
+      transition: .25s;
+    }
+    nav a:hover:after { right: 0; }
+
+    .header-actions { display: flex; gap: 5px; align-items: center; }
+    .icon-btn {
+      position: relative;
+      border: 0;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      color: #151515;
+      background: transparent;
+      transition: .25s;
+    }
+    .icon-btn:hover { background: #f1f1ef; transform: translateY(-2px); }
+    .icon-btn svg { width: 19px; }
+    .badge {
+      position: absolute; top: 1px; right: 0;
+      min-width: 17px; height: 17px; padding: 0 4px;
+      border-radius: 10px; background: #111; color: #fff;
+      display: grid; place-items: center;
+      font-size: 9px; border: 2px solid #fff;
+    }
+    .mobile-toggle { display: none; }
+
+    .hero {
+      min-height: 670px;
+      display: grid;
+      grid-template-columns: 1.03fr .97fr;
+      background: linear-gradient(120deg,#f7f5f0,#eeeae2);
+      overflow: hidden;
+    }
+    .hero-copy {
+      padding: 100px max(30px, calc((100vw - 1240px)/2));
+      padding-right: 58px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .eyebrow {
+      display: flex; align-items: center; gap: 10px;
+      color: #6d5a36;
+      text-transform: uppercase; letter-spacing: .18em;
+      font-size: 11px; font-weight: 800;
+      margin-bottom: 21px;
+    }
+    .eyebrow:before { content:""; width: 34px; height: 1px; background: currentColor; }
+    .hero h1 {
+      max-width: 680px;
+      margin-bottom: 22px;
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(48px,6vw,84px);
+      line-height: .98;
+      letter-spacing: -.065em;
+    }
+    .hero p {
+      max-width: 570px; color: #5d5d5d;
+      font-size: 18px; line-height: 1.7;
+      margin-bottom: 34px;
+    }
+    .hero-image { position: relative; min-height: 600px; overflow: hidden; }
+    .hero-image img { height: 100%; object-fit: cover; }
+    .hero-image:after {
+      content:""; position:absolute; inset:0;
+      background: linear-gradient(90deg,rgba(238,234,226,.3),transparent 35%);
+    }
+    .floating-note {
+      position: absolute; right: 24px; bottom: 24px; z-index: 2;
+      background: rgba(255,255,255,.9); backdrop-filter: blur(12px);
+      border-radius: 18px; padding: 18px 20px; box-shadow: var(--shadow);
+    }
+    .floating-note strong { display:block; font-size: 18px; margin-bottom: 3px; }
+    .floating-note span { color:var(--muted); font-size: 12px; }
+
+    .btn {
+      min-height: 48px;
+      padding: 0 23px;
+      border: 1px solid #111;
+      border-radius: 12px;
+      background: #111; color: #fff;
+      display: inline-flex; align-items: center; justify-content:center; gap: 9px;
+      font-size: 14px; font-weight: 700;
+      transition: .25s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.16); }
+    .btn-outline { background: transparent; color:#111; }
+    .btn-outline:hover { background:#111; color:#fff; }
+    .btn-light { background:#fff; color:#111; border-color:#fff; }
+    .btn-sm { min-height: 39px; padding: 0 15px; border-radius: 10px; font-size: 12px; }
+    .btn-block { width:100%; }
+    .hero-buttons { display:flex; gap:12px; flex-wrap: wrap; }
+
+    section { padding: 82px 0; }
+    .section-head {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 25px; margin-bottom: 31px;
+    }
+    .section-head h2 {
+      margin-bottom: 6px; font-family:"Manrope",sans-serif;
+      font-size: clamp(28px,3vw,40px); letter-spacing:-.045em;
+    }
+    .section-head p { margin:0; color:var(--muted); }
+    .text-link { border:0; background:none; font-weight:700; border-bottom:1px solid; padding:0 0 4px; }
+
+    .categories-grid {
+      display: grid; grid-template-columns: repeat(5,1fr); gap: 16px;
+    }
+    .category-card {
+      position: relative; height: 235px; overflow:hidden; border-radius:18px;
+      background:#eee; cursor:pointer; box-shadow: 0 5px 15px rgba(0,0,0,.04);
+    }
+    .category-card img { height:100%; object-fit:cover; transition:.5s; }
+    .category-card:after {
+      content:""; position:absolute; inset:0;
+      background:linear-gradient(0deg,rgba(0,0,0,.64),transparent 58%);
+    }
+    .category-card:hover img { transform:scale(1.06); }
+    .category-card h3 {
+      position:absolute; z-index:2; left:18px; right:18px; bottom:18px;
+      color:#fff; margin:0; font-size:16px;
+    }
+
+    .product-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
+    .product-card {
+      position:relative; min-width:0; padding:10px;
+      border:1px solid #ededed; border-radius:20px; background:#fff;
+      transition:.3s;
+    }
+    .product-card:hover { transform:translateY(-6px); box-shadow:var(--shadow); }
+    .product-media {
+      position:relative; overflow:hidden; border-radius:15px; aspect-ratio:.82;
+      background:#f5f5f3; cursor:pointer;
+    }
+    .product-media img { height:100%; object-fit:cover; transition:.5s; }
+    .product-card:hover .product-media img { transform:scale(1.035); }
+    .heart {
+      position:absolute; top:11px; right:11px; z-index:2;
+      width:36px; height:36px; display:grid; place-items:center;
+      border:0; border-radius:50%; background:rgba(255,255,255,.9);
+      box-shadow:0 5px 15px rgba(0,0,0,.08);
+    }
+    .heart svg { width:17px; }
+    .heart.active { background:#111; color:#fff; }
+    .sale-chip {
+      position:absolute; top:12px; left:12px; z-index:2;
+      padding:6px 9px; border-radius:20px; background:#fff; color:#b33131;
+      font-size:10px; font-weight:800;
+    }
+    .product-info { padding:14px 4px 5px; }
+    .brand { color:#8a8a8a; text-transform:uppercase; letter-spacing:.1em; font-size:9px; font-weight:800; }
+    .product-info h3 {
+      margin:6px 0 7px; font-size:15px; line-height:1.35;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .rating { color:#d69e2e; font-size:12px; display:flex; gap:5px; align-items:center; }
+    .rating span { color:#777; }
+    .prices { display:flex; gap:8px; align-items:center; margin:10px 0 13px; flex-wrap:wrap; }
+    .price { font-size:17px; font-weight:800; }
+    .old-price { color:#999; text-decoration:line-through; font-size:12px; }
+    .discount { color:var(--green); font-size:11px; font-weight:700; }
+    .card-actions { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+
+    .offer {
+      background:#121212; color:#fff;
+      border-radius:30px; overflow:hidden;
+      display:grid; grid-template-columns:1fr .85fr;
+      min-height:400px;
+    }
+    .offer-copy { padding:65px; display:flex; flex-direction:column; justify-content:center; }
+    .offer-copy small { letter-spacing:.25em; color:#d4b875; font-weight:700; }
+    .offer-copy h2 { font:800 clamp(40px,5vw,68px)/1 "Manrope"; letter-spacing:-.06em; margin:16px 0; }
+    .offer-copy p { color:#c7c7c7; font-size:18px; }
+    .offer-image img { height:100%; object-fit:cover; }
+    .countdown { display:flex; gap:10px; margin:12px 0 25px; }
+    .count-box { width:58px; padding:9px; text-align:center; background:#242424; border-radius:10px; }
+    .count-box b { display:block; font-size:18px; }
+    .count-box span { font-size:8px; color:#aaa; text-transform:uppercase; }
+
+    .perks { padding:25px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .perks-grid { display:grid; grid-template-columns:repeat(4,1fr); }
+    .perk { display:flex; align-items:center; gap:13px; padding:15px 25px; border-right:1px solid var(--line); }
+    .perk:last-child { border:0; }
+    .perk svg { width:23px; }
+    .perk strong { display:block; font-size:13px; }
+    .perk span { color:#888; font-size:11px; }
+
+    .page-hero { padding:55px 0 35px; background:linear-gradient(120deg,#f8f8f6,#f1eee8); }
+    .page-hero h1 { font:800 clamp(34px,5vw,54px)/1 "Manrope"; letter-spacing:-.05em; margin-bottom:12px; }
+    .page-hero p { color:var(--muted); margin:0; }
+
+    .shop-layout { display:grid; grid-template-columns:245px 1fr; gap:32px; padding:44px 0 80px; }
+    .filter-panel {
+      align-self:start; position:sticky; top:100px;
+      border:1px solid var(--line); border-radius:18px; padding:20px;
+    }
+    .filter-title { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+    .filter-group { border-top:1px solid var(--line); padding:16px 0; }
+    .filter-group label { display:block; margin-bottom:8px; font-size:12px; font-weight:700; }
+    .control {
+      width:100%; height:45px; border:1px solid #ddd; border-radius:10px;
+      padding:0 12px; background:#fff; outline:none;
+    }
+    .control:focus { border-color:#111; box-shadow:0 0 0 3px #eee; }
+    textarea.control { height:90px; padding-top:12px; resize:vertical; }
+    .shop-toolbar { display:flex; align-items:center; gap:12px; justify-content:space-between; margin-bottom:22px; }
+    .search-field { position:relative; flex:1; }
+    .search-field svg { position:absolute; width:18px; left:14px; top:14px; color:#777; }
+    .search-field input { padding-left:42px; }
+    .sort { width:190px; }
+    .filter-mobile { display:none; }
+
+    .product-detail { padding:48px 0 80px; }
+    .detail-grid { display:grid; grid-template-columns:1.05fr .95fr; gap:55px; }
+    .gallery { display:grid; grid-template-columns:90px 1fr; gap:15px; }
+    .thumbs { display:flex; flex-direction:column; gap:10px; }
+    .thumb {
+      padding:0; border:2px solid transparent; border-radius:12px; overflow:hidden;
+      aspect-ratio:.8; background:#eee;
+    }
+    .thumb.active { border-color:#111; }
+    .main-photo { border-radius:22px; overflow:hidden; background:#f4f4f2; aspect-ratio:.83; }
+    .main-photo img { height:100%; object-fit:cover; }
+    .detail-info h1 { font:800 clamp(30px,4vw,45px)/1.12 "Manrope"; letter-spacing:-.045em; margin:10px 0 13px; }
+    .detail-price { display:flex; gap:12px; align-items:center; margin:20px 0; }
+    .detail-price .price { font-size:29px; }
+    .detail-description { color:#666; line-height:1.75; border-top:1px solid var(--line); padding-top:19px; }
+    .option-label { font-size:13px; font-weight:800; margin:19px 0 10px; }
+    .options { display:flex; flex-wrap:wrap; gap:8px; }
+    .option {
+      min-width:43px; height:40px; border:1px solid #ddd; border-radius:9px;
+      background:#fff; font-weight:700;
+    }
+    .option.active { background:#111; color:#fff; border-color:#111; }
+    .color-dot { width:34px; min-width:34px; height:34px; border-radius:50%; padding:3px; background-clip:content-box; }
+    .purchase-row { display:grid; grid-template-columns:105px 1fr 1fr; gap:10px; margin:23px 0; }
+    .qty { display:flex; border:1px solid #ddd; border-radius:11px; overflow:hidden; align-items:center; justify-content:space-around; }
+    .qty button { border:0; background:#fff; font-size:20px; }
+    .info-card { border:1px solid var(--line); border-radius:14px; padding:17px; margin-top:12px; }
+    .info-card h4 { margin:0 0 6px; font-size:13px; display:flex; align-items:center; gap:8px; }
+    .info-card p { margin:0; color:#777; font-size:12px; line-height:1.5; }
+    .delivery-check { display:flex; gap:8px; margin-top:10px; }
+    .delivery-check input { flex:1; }
+
+    .tabs { margin-top:70px; }
+    .tab-buttons { display:flex; gap:25px; border-bottom:1px solid var(--line); }
+    .tab-buttons button { border:0; background:none; padding:14px 0; font-weight:700; }
+    .tab-buttons button.active { border-bottom:2px solid #111; }
+    .tab-content { padding:25px 0; line-height:1.8; color:#555; }
+    .review { border-bottom:1px solid var(--line); padding:17px 0; }
+    .review strong { color:#111; }
+
+    .cart-layout, .checkout-layout { display:grid; grid-template-columns:1fr 380px; gap:35px; padding:45px 0 85px; }
+    .cart-item {
+      display:grid; grid-template-columns:110px 1fr auto; gap:18px;
+      border-bottom:1px solid var(--line); padding:19px 0;
+    }
+    .cart-item img { height:130px; object-fit:cover; border-radius:13px; }
+    .cart-item h3 { margin:4px 0 8px; font-size:16px; }
+    .remove { border:0; background:none; color:#a33; padding:0; font-size:12px; }
+    .summary-card {
+      align-self:start; position:sticky; top:100px;
+      background:#f7f7f5; border-radius:20px; padding:25px;
+    }
+    .summary-card h2 { font-size:20px; margin-bottom:20px; }
+    .summary-line { display:flex; justify-content:space-between; margin:13px 0; color:#666; font-size:14px; }
+    .summary-total { border-top:1px solid #ddd; padding-top:16px; color:#111; font-size:18px; font-weight:800; }
+    .coupon { display:flex; gap:7px; margin:19px 0; }
+    .empty { text-align:center; padding:90px 20px; }
+    .empty svg { width:50px; height:50px; color:#aaa; }
+    .empty h2 { margin:16px 0 8px; }
+
+    .form-card { border:1px solid var(--line); border-radius:20px; padding:27px; margin-bottom:20px; }
+    .form-card h2 { font-size:20px; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .field label { display:block; font-size:11px; font-weight:800; margin-bottom:7px; color:#555; }
+    .span-2 { grid-column:span 2; }
+    .payment-option {
+      display:flex; align-items:center; gap:12px; padding:15px;
+      border:1px solid #ddd; border-radius:12px; margin-top:9px;
+    }
+    .payment-option:has(input:checked) { border-color:#111; background:#fafafa; }
+    .secure-message { display:flex; align-items:center; justify-content:center; gap:7px; color:#44745c; font-size:11px; margin-top:14px; }
+
+    .auth-wrap { max-width:460px; margin:60px auto 90px; }
+    .auth-card { border:1px solid var(--line); border-radius:24px; padding:35px; box-shadow:var(--shadow); }
+    .auth-card h1 { font:800 32px "Manrope"; letter-spacing:-.04em; margin-bottom:8px; }
+    .auth-card > p { color:#777; margin-bottom:25px; }
+    .auth-card .field { margin:14px 0; }
+    .auth-switch { text-align:center; margin-top:20px; color:#666; font-size:13px; }
+    .auth-switch button { border:0; background:none; font-weight:800; text-decoration:underline; }
+
+    .account-grid { display:grid; grid-template-columns:240px 1fr; gap:30px; padding:45px 0 80px; }
+    .account-menu { border:1px solid var(--line); border-radius:18px; padding:10px; align-self:start; }
+    .account-menu button {
+      width:100%; border:0; background:none; border-radius:10px; padding:13px;
+      display:flex; align-items:center; gap:10px; text-align:left;
+    }
+    .account-menu button.active, .account-menu button:hover { background:#111; color:#fff; }
+    .account-menu svg { width:17px; }
+    .dashboard-card { border:1px solid var(--line); border-radius:20px; padding:25px; }
+    .order-card { display:flex; gap:15px; padding:17px 0; border-bottom:1px solid var(--line); align-items:center; }
+    .order-card img { width:70px; height:80px; object-fit:cover; border-radius:10px; }
+    .status { padding:5px 9px; border-radius:20px; background:#eaf6ef; color:#187147; font-size:10px; font-weight:800; }
+
+    .confirmation {
+      max-width:750px; margin:60px auto 90px; text-align:center;
+      border:1px solid var(--line); border-radius:26px; padding:45px; box-shadow:var(--shadow);
+    }
+    .success-icon {
+      width:72px; height:72px; margin:0 auto 20px; border-radius:50%;
+      display:grid; place-items:center; background:#eaf7ee; color:#16804c;
+    }
+    .success-icon svg { width:36px; height:36px; }
+    .confirmation h1 { font:800 clamp(30px,5vw,45px) "Manrope"; letter-spacing:-.05em; }
+    .confirmation-details { margin:28px 0; background:#f8f8f6; border-radius:15px; padding:22px; text-align:left; }
+
+    .admin-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:15px; margin:28px 0; }
+    .stat { border:1px solid var(--line); border-radius:16px; padding:20px; }
+    .stat span { color:#777; font-size:12px; }
+    .stat b { display:block; font:800 27px "Manrope"; margin-top:6px; }
+    .admin-table { width:100%; border-collapse:collapse; font-size:13px; }
+    .admin-table th, .admin-table td { padding:13px; border-bottom:1px solid var(--line); text-align:left; }
+    .admin-table img { width:45px; height:50px; object-fit:cover; border-radius:7px; }
+
+    .newsletter { background:#eeeae2; padding:60px 0; }
+    .newsletter-inner { display:flex; align-items:center; justify-content:space-between; gap:30px; }
+    .newsletter h2 { font:800 34px "Manrope"; letter-spacing:-.04em; margin-bottom:7px; }
+    .newsletter p { color:#666; margin:0; }
+    .subscribe { display:flex; width:min(100%,450px); }
+    .subscribe input { flex:1; border:0; padding:0 18px; border-radius:12px 0 0 12px; outline:none; }
+    .subscribe .btn { border-radius:0 12px 12px 0; }
+
+    footer { background:#111; color:#fff; padding:65px 0 25px; }
+    .footer-grid { display:grid; grid-template-columns:1.5fr repeat(3,1fr); gap:45px; }
+    .footer-about p { color:#aaa; line-height:1.7; max-width:310px; margin-top:18px; }
+    footer h4 { font-size:13px; margin-bottom:18px; }
+    .footer-links a { display:block; color:#aaa; font-size:12px; margin:11px 0; cursor:pointer; }
+    .footer-links a:hover { color:#fff; }
+    .socials { display:flex; gap:8px; margin-top:20px; }
+    .socials a { width:36px; height:36px; border:1px solid #333; border-radius:50%; display:grid; place-items:center; }
+    .socials svg { width:15px; }
+    .copyright { border-top:1px solid #292929; padding-top:22px; margin-top:45px; color:#777; font-size:11px; display:flex; justify-content:space-between; }
+
+    .toast {
+      position:fixed; z-index:100; right:22px; bottom:22px;
+      background:#111; color:#fff; border-radius:12px; padding:14px 18px;
+      font-size:13px; box-shadow:var(--shadow);
+      transform:translateY(80px); opacity:0; transition:.3s;
+    }
+    .toast.show { transform:none; opacity:1; }
+
+    .mobile-nav {
+      display:none; position:fixed; inset:0; z-index:80;
+      background:#fff; padding:20px;
+    }
+    .mobile-nav.open { display:block; animation:reveal .25s; }
+    .mobile-nav-head { display:flex; justify-content:space-between; align-items:center; }
+    .mobile-links { display:flex; flex-direction:column; padding:45px 5px; }
+    .mobile-links a { font:700 30px "Manrope"; padding:10px 0; cursor:pointer; }
+
+    @media(max-width:1050px) {
+      nav { display:none; }
+      .mobile-toggle { display:grid; }
+      .header-actions { margin-left:auto; }
+      .categories-grid { grid-template-columns:repeat(3,1fr); }
+      .product-grid { grid-template-columns:repeat(3,1fr); }
+      .hero-copy { padding-left:35px; }
+    }
+
+    @media(max-width:760px) {
+      .container { width:min(100% - 24px,1240px); }
+      .announcement { font-size:10px; }
+      .header-inner { height:64px; }
+      .header-actions .account-icon, .header-actions .wishlist-icon { display:none; }
+      .hero { grid-template-columns:1fr; min-height:0; }
+      .hero-copy { padding:65px 22px 45px; }
+      .hero h1 { font-size:50px; }
+      .hero p { font-size:15px; }
+      .hero-image { min-height:430px; }
+      section { padding:58px 0; }
+      .section-head { align-items:flex-start; }
+      .categories-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+      .category-card { height:190px; }
+      .product-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+      .product-card { padding:6px; border-radius:15px; }
+      .product-info { padding:10px 3px 3px; }
+      .product-info h3 { font-size:13px; }
+      .card-actions { grid-template-columns:1fr; }
+      .card-actions .btn-outline { display:none; }
+      .offer { grid-template-columns:1fr; border-radius:22px; }
+      .offer-copy { padding:40px 25px; }
+      .offer-image { height:290px; }
+      .perks-grid { grid-template-columns:repeat(2,1fr); }
+      .perk { padding:15px 10px; border-bottom:1px solid var(--line); }
+      .shop-layout { grid-template-columns:1fr; padding-top:25px; }
+      .filter-panel { display:none; position:relative; top:0; }
+      .filter-panel.open { display:block; }
+      .filter-mobile { display:inline-flex; }
+      .shop-toolbar { flex-wrap:wrap; }
+      .search-field { flex-basis:100%; }
+      .sort { flex:1; }
+      .detail-grid { grid-template-columns:1fr; gap:30px; }
+      .gallery { grid-template-columns:1fr; }
+      .thumbs { flex-direction:row; order:2; }
+      .thumb { width:62px; }
+      .purchase-row { grid-template-columns:90px 1fr; }
+      .purchase-row .buy-detail { grid-column:span 2; }
+      .cart-layout, .checkout-layout { grid-template-columns:1fr; padding-top:25px; }
+      .summary-card { position:relative; top:0; }
+      .cart-item { grid-template-columns:85px 1fr; }
+      .cart-item img { height:105px; }
+      .cart-item > .price { grid-column:2; }
+      .form-grid { grid-template-columns:1fr; }
+      .span-2 { grid-column:span 1; }
+      .account-grid { grid-template-columns:1fr; }
+      .account-menu { display:flex; overflow:auto; }
+      .account-menu button { min-width:max-content; }
+      .admin-stats { grid-template-columns:repeat(2,1fr); }
+      .table-wrap { overflow:auto; }
+      .newsletter-inner { flex-direction:column; align-items:flex-start; }
+      .subscribe { height:48px; }
+      .footer-grid { grid-template-columns:1fr 1fr; }
+      .footer-about { grid-column:span 2; }
+      .copyright { flex-direction:column; gap:8px; }
+    }
+
+    @media(max-width:390px) {
+      .hero h1 { font-size:43px; }
+      .btn { padding:0 17px; }
+      .price { font-size:15px; }
+      .old-price, .discount { font-size:10px; }
+      .footer-grid { gap:28px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement">COMPLIMENTARY SHIPPING ON ORDERS ABOVE $99 · EASY 30-DAY RETURNS</div>
+
+  <header>
+    <div class="container header-inner">
+      <div class="logo" onclick="navigate('home')">TrendVault<small>by luxury.com</small></div>
+      <nav>
+        <a onclick="navigate('home')">Home</a>
+        <a onclick="navigate('shop')">Shop</a>
+        <a onclick="scrollHome('categories')">Categories</a>
+        <a onclick="shopFilter('New Arrival')">New Arrivals</a>
+        <a onclick="shopFilter('Best Seller')">Best Sellers</a>
+        <a onclick="scrollHome('about')">About</a>
+        <a onclick="scrollHome('footer')">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" aria-label="Search" onclick="navigate('shop');setTimeout(()=>document.getElementById('searchInput').focus(),100)"><i data-lucide="search"></i></button>
+        <button class="icon-btn wishlist-icon" aria-label="Wishlist" onclick="showWishlist()"><i data-lucide="heart"></i><span class="badge" id="wishCount">0</span></button>
+        <button class="icon-btn" aria-label="Cart" onclick="navigate('cart')"><i data-lucide="shopping-bag"></i><span class="badge" id="cartCount">0</span></button>
+        <button class="icon-btn account-icon" aria-label="Account" onclick="navigate('account')"><i data-lucide="user"></i></button>
+        <button class="icon-btn mobile-toggle" aria-label="Menu" onclick="toggleMobile()"><i data-lucide="menu"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-head">
+      <div class="logo">TrendVault<small>by luxury.com</small></div>
+      <button class="icon-btn" onclick="toggleMobile()"><i data-lucide="x"></i></button>
+    </div>
+    <div class="mobile-links">
+      <a onclick="mobileGo('home')">Home</a>
+      <a onclick="mobileGo('shop')">Shop All</a>
+      <a onclick="mobileGo('shop','New Arrival')">New Arrivals</a>
+      <a onclick="mobileGo('shop','Best Seller')">Best Sellers</a>
+      <a onclick="mobileGo('account')">My Account</a>
+      <a onclick="mobileGo('admin')">Admin Portal</a>
+    </div>
+  </div>
+
+  <main>
+    <div class="view active" id="homeView">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">The new luxury edit</div>
+          <h1>Upgrade Your Everyday Style</h1>
+          <p>Discover premium fashion, beauty, accessories and lifestyle products at prices you'll love.</p>
+          <div class="hero-buttons">
+            <button class="btn" onclick="navigate('shop')">Shop Now <i data-lucide="arrow-up-right"></i></button>
+            <button class="btn btn-outline" onclick="scrollHome('categories')">Explore Collection</button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1200&q=85" alt="Premium fashion collection">
+          <div class="floating-note"><strong>Spring / Summer '26</strong><span>New collection now available</span></div>
+        </div>
+      </div>
+
+      <section id="categories">
+        <div class="container">
+          <div class="section-head">
+            <div><h2>Shop by Category</h2><p>Curated essentials for a considered lifestyle.</p></div>
+            <button class="text-link" onclick="navigate('shop')">View all</button>
+          </div>
+          <div class="categories-grid" id="categoryGrid"></div>
+        </div>
+      </section>
+
+      <section style="background:#fafafa">
+        <div class="container">
+          <div class="section-head">
+            <div><h2>Featured Products</h2><p>Editor-selected pieces worth discovering.</p></div>
+            <button class="text-link" onclick="navigate('shop')">Shop all</button>
+          </div>
+          <div class="product-grid" id="featuredGrid"></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="section-head">
+            <div><h2>Trending Products</h2><p>What everyone is adding to their vault.</p></div>
+          </div>
+          <div class="product-grid" id="trendingGrid"></div>
+        </div>
+      </section>
+
+      <section style="padding-top:20px">
+        <div class="container">
+          <div class="offer">
+            <div class="offer-copy">
+              <small>LIMITED TIME OFFER</small>
+              <h2>Up to 50% OFF</h2>
+              <p>On selected premium products, while stocks last.</p>
+              <div class="countdown" id="countdown"></div>
+              <div><button class="btn btn-light" onclick="shopFilter('Deal')">Shop Deals <i data-lucide="arrow-right"></i></button></div>
+            </div>
+            <div class="offer-image"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=85" alt="Limited time fashion offer"></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="section-head"><div><h2>Best Sellers</h2><p>Beloved by our community.</p></div></div>
+          <div class="product-grid" id="bestGrid"></div>
+        </div>
+      </section>
+
+      <section style="background:#fafafa">
+        <div class="container">
+          <div class="section-head"><div><h2>New Arrivals</h2><p>Fresh additions, just landed.</p></div></div>
+          <div class="product-grid" id="newGrid"></div>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="container">
+          <div class="section-head"><div><h2>The TrendVault Standard</h2><p>Premium curation without the traditional markup.</p></div></div>
+          <div class="perks-grid">
+            <div class="perk"><i data-lucide="truck"></i><div><strong>Free Shipping</strong><span>On orders above $99</span></div></div>
+            <div class="perk"><i data-lucide="rotate-ccw"></i><div><strong>Easy Returns</strong><span>30-day returns</span></div></div>
+            <div class="perk"><i data-lucide="shield-check"></i><div><strong>Secure Payments</strong><span>Encrypted checkout</span></div></div>
+            <div class="perk"><i data-lucide="banknote"></i><div><strong>Cash on Delivery</strong><span>Available on eligible orders</span></div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="view" id="shopView">
+      <div class="page-hero"><div class="container"><h1>Shop the Collection</h1><p>Explore premium essentials, thoughtfully selected for you.</p></div></div>
+      <div class="container shop-layout">
+        <aside class="filter-panel" id="filters">
+          <div class="filter-title"><strong>Filters</strong><button class="text-link" onclick="clearFilters()">Clear</button></div>
+          <div class="filter-group"><label>Category</label><select class="control" id="categoryFilter" onchange="renderShop()"><option value="">All categories</option></select></div>
+          <div class="filter-group"><label>Maximum price: $<span id="priceLabel">500</span></label><input style="width:100%" type="range" min="25" max="500" value="500" id="priceFilter" oninput="priceLabel.textContent=this.value;renderShop()"></div>
+          <div class="filter-group"><label>Brand</label><select class="control" id="brandFilter" onchange="renderShop()"><option value="">All brands</option></select></div>
+          <div class="filter-group"><label>Minimum rating</label><select class="control" id="ratingFilter" onchange="renderShop()"><option value="0">Any rating</option><option value="4">4★ & above</option><option value="4.5">4.5★ & above</option></select></div>
+          <div class="filter-group"><label>Size</label><select class="control" id="sizeFilter" onchange="renderShop()"><option value="">All sizes</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option></select></div>
+          <div class="filter-group"><label>Color</label><select class="control" id="colorFilter" onchange="renderShop()"><option value="">All colors</option><option>Black</option><option>White</option><option>Brown</option><option>Blue</option><option>Gold</option></select></div>
+          <div class="filter-group"><label>Availability</label><select class="control" id="stockFilter" onchange="renderShop()"><option value="">All products</option><option value="in">In stock</option></select></div>
+        </aside>
+        <div>
+          <div class="shop-toolbar">
+            <div class="search-field"><i data-lucide="search"></i><input class="control" id="searchInput" placeholder="Search products, categories, brands..." oninput="renderShop()"></div>
+            <button class="btn btn-outline btn-sm filter-mobile" onclick="filters.classList.toggle('open')"><i data-lucide="sliders-horizontal"></i> Filters</button>
+            <select class="control sort" id="sortFilter" onchange="renderShop()">
+              <option value="popular">Most popular</option>
+              <option value="newest">Newest</option>
+              <option value="low">Price: low to high</option>
+              <option value="high">Price: high to low</option>
+              <option value="rating">Top rated</option>
+            </select>
+          </div>
+          <p id="resultCount" style="color:#777;font-size:12px"></p>
+          <div class="product-grid" id="shopGrid"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="view" id="productView"><div class="container product-detail" id="productDetail"></div></div>
+
+    <div class="view" id="cartView">
+      <div class="page-hero"><div class="container"><h1>Your Shopping Bag</h1><p>Review your selected pieces before checkout.</p></div></div>
+      <div class="container" id="cartContent"></div>
+    </div>
+
+    <div class="view" id="checkoutView">
+      <div class="page-hero"><div class="container"><h1>Secure Checkout</h1><p>Complete your order in just a few steps.</p></div></div>
+      <div class="container checkout-layout">
+        <form id="checkoutForm" onsubmit="placeOrder(event)">
+          <div class="form-card">
+            <h2>Contact & delivery details</h2>
+            <div class="form-grid">
+              <div class="field"><label>FULL NAME</label><input class="control" name="name" required placeholder="Alex Morgan"></div>
+              <div class="field"><label>MOBILE NUMBER</label><input class="control" name="mobile" required placeholder="+1 555 012 3456"></div>
+              <div class="field span-2"><label>EMAIL ADDRESS</label><input class="control" name="email" type="email" required placeholder="alex@example.com"></div>
+              <div class="field span-2"><label>COMPLETE ADDRESS</label><textarea class="control" name="address" required placeholder="Apartment, street and neighborhood"></textarea></div>
+              <div class="field"><label>CITY</label><input class="control" name="city" required></div>
+              <div class="field"><label>STATE</label><input class="control" name="state" required></div>
+              <div class="field"><label>ZIP / PIN CODE</label><input class="control" name="pin" required></div>
+            </div>
+          </div>
+          <div class="form-card">
+            <h2>Payment method</h2>
+            <label class="payment-option"><input type="radio" name="payment" value="UPI" checked> <i data-lucide="smartphone"></i><span><strong>UPI</strong><br><small>Pay using your UPI app</small></span></label>
+            <label class="payment-option"><input type="radio" name="payment" value="Credit/Debit Card"> <i data-lucide="credit-card"></i><span><strong>Credit / Debit Card</strong><br><small>Visa, Mastercard, Amex</small></span></label>
+            <label class="payment-option"><input type="radio" name="payment" value="Net Banking"> <i data-lucide="landmark"></i><span><strong>Net Banking</strong><br><small>All major banks supported</small></span></label>
+            <label class="payment-option"><input type="radio" name="payment" value="Cash on Delivery"> <i data-lucide="banknote"></i><span><strong>Cash on Delivery</strong><br><small>Pay when your order arrives</small></span></label>
+          </div>
+        </form>
+        <aside class="summary-card" id="checkoutSummary"></aside>
+      </div>
+    </div>
+
+    <div class="view" id="accountView"><div class="container" id="accountContent"></div></div>
+    <div class="view" id="confirmationView"><div class="container" id="confirmationContent"></div></div>
+
+    <div class="view" id="adminView">
+      <div class="page-hero"><div class="container"><h1>Commerce Admin</h1><p>Manage products, orders and customers.</p></div></div>
+      <div class="container" style="padding:35px 0 80px">
+        <div class="admin-stats" id="adminStats"></div>
+        <div class="dashboard-card">
+          <div class="section-head" style="margin-bottom:15px"><div><h2 style="font-size:25px">Product management</h2><p>Catalog and inventory overview</p></div><button class="btn btn-sm" onclick="addAdminProduct()">Add Product</button></div>
+          <div class="table-wrap"><table class="admin-table"><thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Inventory</th><th>Status</th></tr></thead><tbody id="adminProducts"></tbody></table></div>
+        </div>
+        <div class="dashboard-card" style="margin-top:20px">
+          <h2 style="font-size:25px">Order management</h2>
+          <div class="table-wrap"><table class="admin-table"><thead><tr><th>Order ID</th><th>Customer</th><th>Total</th><th>Payment</th><th>Status</th></tr></thead><tbody id="adminOrders"></tbody></table></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="newsletter">
+    <div class="container newsletter-inner">
+      <div><h2>Inside the Vault</h2><p>Get the latest deals directly in your inbox.</p></div>
+      <form class="subscribe" onsubmit="subscribe(event)"><input type="email" required placeholder="Your email address"><button class="btn">Subscribe</button></form>
+    </div>
+  </div>
+
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <div class="logo">TrendVault<small>by luxury.com</small></div>
+          <p>Premium fashion, beauty and lifestyle pieces curated for modern everyday living.</p>
+          <div class="socials">
+            <a aria-label="Instagram"><i data-lucide="instagram"></i></a>
+            <a aria-label="Facebook"><i data-lucide="facebook"></i></a>
+            <a aria-label="YouTube"><i data-lucide="youtube"></i></a>
+            <a aria-label="WhatsApp"><i data-lucide="message-circle"></i></a>
+          </div>
+        </div>
+        <div class="footer-links"><h4>Quick Links</h4><a onclick="navigate('shop')">Shop</a><a onclick="shopFilter('New Arrival')">New Arrivals</a><a onclick="shopFilter('Best Seller')">Best Sellers</a><a onclick="scrollHome('about')">About TrendVault</a><a onclick="navigate('admin')">Admin Portal</a></div>
+        <div class="footer-links"><h4>Customer Support</h4><a>Contact Us</a><a>FAQ</a><a onclick="navigate('account')">My Orders</a><a onclick="navigate('account')">Order Tracking</a><a>Shipping & Delivery</a></div>
+        <div class="footer-links"><h4>Legal & Policies</h4><a>Returns & Refunds</a><a>Privacy Policy</a><a>Terms & Conditions</a><a>Accessibility</a></div>
+      </div>
+      <div class="copyright"><span>© 2026 TrendVault by luxury.com. All rights reserved.</span><span>USD · United States</span></div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const baseProducts = [
+      {id:1,name:"Signature Wool Blend Coat",brand:"Atelier No. 7",category:"Women's Clothing",price:189,old:260,rating:4.8,reviews:128,tag:"Best Seller",stock:14,colors:["Black","Brown"],sizes:["XS","S","M","L"],image:"https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=800&q=85"},
+      {id:2,name:"Minimal Leather Chronograph",brand:"Montre",category:"Watches",price:149,old:215,rating:4.7,reviews:84,tag:"Trending",stock:9,colors:["Black","Gold"],sizes:["One Size"],image:"https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=800&q=85"},
+      {id:3,name:"Studio Leather Crossbody",brand:"Aera",category:"Accessories",price:118,old:165,rating:4.9,reviews:202,tag:"Best Seller",stock:18,colors:["Brown","Black"],sizes:["One Size"],image:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=85"},
+      {id:4,name:"Essential Runner Sneaker",brand:"Form",category:"Shoes",price:96,old:140,rating:4.6,reviews:94,tag:"Trending",stock:24,colors:["White","Black"],sizes:["S","M","L","XL"],image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=85"},
+      {id:5,name:"Structured Linen Blazer",brand:"North & Row",category:"Men's Clothing",price:135,old:195,rating:4.5,reviews:67,tag:"New Arrival",stock:8,colors:["Brown","Blue"],sizes:["S","M","L","XL"],image:"https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=85"},
+      {id:6,name:"Radiance Ritual Skincare Set",brand:"Élan Beauty",category:"Beauty",price:72,old:104,rating:4.8,reviews:174,tag:"Deal",stock:31,colors:["White"],sizes:["One Size"],image:"https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=800&q=85"},
+      {id:7,name:"Sculpted Gold Hoop Earrings",brand:"Oro",category:"Jewellery",price:78,old:120,rating:4.7,reviews:53,tag:"New Arrival",stock:11,colors:["Gold"],sizes:["One Size"],image:"https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=85"},
+      {id:8,name:"QuietSound Studio Headphones",brand:"Aural",category:"Electronics",price:199,old:299,rating:4.6,reviews:245,tag:"Deal",stock:16,colors:["Black","White"],sizes:["One Size"],image:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=85"},
+      {id:9,name:"Cashmere Everyday Sweater",brand:"Atelier No. 7",category:"Fashion",price:110,old:155,rating:4.9,reviews:116,tag:"Best Seller",stock:13,colors:["Brown","White"],sizes:["XS","S","M","L"],image:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=800&q=85"},
+      {id:10,name:"Architectural Table Lamp",brand:"Luma Home",category:"Home & Lifestyle",price:89,old:125,rating:4.4,reviews:48,tag:"New Arrival",stock:7,colors:["Black","White"],sizes:["One Size"],image:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=85"},
+      {id:11,name:"Classic Oxford Shirt",brand:"North & Row",category:"Men's Clothing",price:68,old:92,rating:4.5,reviews:89,tag:"Trending",stock:27,colors:["White","Blue"],sizes:["S","M","L","XL"],image:"https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=800&q=85"},
+      {id:12,name:"Silk Evening Dress",brand:"Maison Line",category:"Women's Clothing",price:175,old:250,rating:4.8,reviews:72,tag:"New Arrival",stock:6,colors:["Black","Blue"],sizes:["XS","S","M","L"],image:"https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=800&q=85"}
+    ];
+
+    let products = JSON.parse(localStorage.getItem("tv_products")) || baseProducts;
+    let cart = JSON.parse(localStorage.getItem("tv_cart")) || [];
+    let wishlist = JSON.parse(localStorage.getItem("tv_wishlist")) || [];
+    let orders = JSON.parse(localStorage.getItem("tv_orders")) || [];
+    let user = JSON.parse(localStorage.getItem("tv_user")) || null;
+    let coupon = null;
+    let selectedProduct = products[0];
+    let detailQty = 1;
+
+    const categories = [
+      ["Fashion","https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=500&q=80"],
+      ["Men's Clothing","https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=500&q=80"],
+      ["Women's Clothing","https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=500&q=80"],
+      ["Shoes","https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=500&q=80"],
+      ["Watches","https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=500&q=80"],
+      ["Jewellery","https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=500&q=80"],
+      ["Beauty","https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=500&q=80"],
+      ["Electronics","https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=500&q=80"],
+      ["Home & Lifestyle","https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=500&q=80"],
+      ["Accessories","https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?auto=format&fit=crop&w=500&q=80"]
+    ];
+
+    const money = n => "$" + Number(n).toFixed(2);
+    const discount = p => Math.round((1-p.price/p.old)*100);
+
+    function saveState(){
+      localStorage.setItem("tv_cart",JSON.stringify(cart));
+      localStorage.setItem("tv_wishlist",JSON.stringify(wishlist));
+      localStorage.setItem("tv_orders",JSON.stringify(orders));
+      localStorage.setItem("tv_products",JSON.stringify(products));
+      updateBadges();
+    }
+
+    function updateBadges(){
+      document.getElementById("cartCount").textContent = cart.reduce((s,i)=>s+i.qty,0);
+      document.getElementById("wishCount").textContent = wishlist.length;
+    }
+
+    function toast(message){
+      const t=document.getElementById("toast");
+      t.textContent=message;t.classList.add("show");
+      setTimeout(()=>t.classList.remove("show"),2400);
+    }
+
+    function refreshIcons(){ if(window.lucide) lucide.createIcons(); }
+
+    function navigate(view){
+      document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+      const target=document.getElementById(view+"View");
+      if(target) target.classList.add("active");
+      window.scrollTo({top:0,behavior:"smooth"});
+      if(view==="shop") renderShop();
+      if(view==="cart") renderCart();
+      if(view==="checkout") renderCheckout();
+      if(view==="account") renderAccount();
+      if(view==="admin") renderAdmin();
+      refreshIcons();
+    }
+
+    function scrollHome(id){
+      navigate("home");
+      setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:"smooth"}),150);
+    }
+
+    function toggleMobile(){ document.getElementById("mobileNav").classList.toggle("open"); }
+    function mobileGo(view,tag){ toggleMobile(); tag?shopFilter(tag):navigate(view); }
+
+    function productCard(p){
+      const loved=wishlist.includes(p.id);
+      return `<article class="product-card">
+        <div class="product-media" onclick="openProduct(${p.id})">
+          <span class="sale-chip">-${discount(p)}%</span>
+          <button class="heart ${loved?"active":""}" onclick="event.stopPropagation();toggleWish(${p.id})" aria-label="Wishlist"><i data-lucide="heart"></i></button>
+          <img loading="lazy" src="${p.image}" alt="${p.name}">
+        </div>
+        <div class="product-info">
+          <span class="brand">${p.brand}</span><h3 onclick="openProduct(${p.id})" style="cursor:pointer">${p.name}</h3>
+          <div class="rating">★★★★★ <span>${p.rating} (${p.reviews})</span></div>
+          <div class="prices"><span class="price">${money(p.price)}</span><span class="old-price">${money(p.old)}</span><span class="discount">${discount(p)}% off</span></div>
+          <div class="card-actions"><button class="btn btn-sm" onclick="addToCart(${p.id})">Add to Cart</button><button class="btn btn-sm btn-outline" onclick="buyNow(${p.id})">Buy Now</button></div>
+        </div>
+      </article>`;
+    }
+
+    function renderHome(){
+      document.getElementById("categoryGrid").innerHTML=categories.map(c=>`<article class="category-card" onclick="categoryShop('${c[0]}')"><img loading="lazy" src="${c[1]}" alt="${c[0]}"><h3>${c[0]}</h3></article>`).join("");
+      document.getElementById("featuredGrid").innerHTML=products.slice(0,4).map(productCard).join("");
+      document.getElementById("trendingGrid").innerHTML=products.filter(p=>p.tag==="Trending").concat(products[2]).slice(0,4).map(productCard).join("");
+      document.getElementById("bestGrid").innerHTML=products.filter(p=>p.tag==="Best Seller").concat(products[3]).slice(0,4).map(productCard).join("");
+      document.getElementById("newGrid").innerHTML=products.filter(p=>p.tag==="New Arrival").slice(0,4).map(productCard).join("");
+      refreshIcons();
+    }
+
+    function initFilters(){
+      const cats=[...new Set(products.map(p=>p.category))];
+      const brands=[...new Set(products.map(p=>p.brand))];
+      categoryFilter.innerHTML='<option value="">All categories</option>'+cats.map(x=>`<option>${x}</option>`).join("");
+      brandFilter.innerHTML='<option value="">All brands</option>'+brands.map(x=>`<option>${x}</option>`).join("");
+    }
+
+    function renderShop(){
+      const q=(document.getElementById("searchInput")?.value||"").toLowerCase();
+      const cat=document.getElementById("categoryFilter")?.value||"";
+      const brand=document.getElementById("brandFilter")?.value||"";
+      const max=+(document.getElementById("priceFilter")?.value||500);
+      const minRating=+(document.getElementById("ratingFilter")?.value||0);
+      const size=document.getElementById("sizeFilter")?.value||"";
+      const color=document.getElementById("colorFilter")?.value||"";
+      const inStock=document.getElementById("stockFilter")?.value||"";
+      let list=products.filter(p=>
+        (!q || `${p.name} ${p.brand} ${p.category} ${p.tag}`.toLowerCase().includes(q)) &&
+        (!cat || p.category===cat) && (!brand || p.brand===brand) && p.price<=max &&
+        p.rating>=minRating && (!size || p.sizes.includes(size)) &&
+        (!color || p.colors.includes(color)) && (!inStock || p.stock>0)
+      );
+      const sort=document.getElementById("sortFilter")?.value;
+      if(sort==="low") list.sort((a,b)=>a.price-b.price);
+      if(sort==="high") list.sort((a,b)=>b.price-a.price);
+      if(sort==="rating") list.sort((a,b)=>b.rating-a.rating);
+      if(sort==="newest") list.sort((a,b)=>b.id-a.id);
+      if(sort==="popular") list.sort((a,b)=>b.reviews-a.reviews);
+      document.getElementById("resultCount").textContent=`${list.length} premium products found`;
+      document.getElementById("shopGrid").innerHTML=list.length?list.map(productCard).join(""):`<div class="empty" style="grid-column:1/-1"><i data-lucide="search-x"></i><h2>No products found</h2><p>Try adjusting your search or filters.</p></div>`;
+      refreshIcons();
+    }
+
+    function categoryShop(category){
+      navigate("shop");
+      document.getElementById("categoryFilter").value=category;
+      renderShop();
+    }
+
+    function shopFilter(tag){
+      navigate("shop");
+      searchInput.value=tag;
+      renderShop();
+    }
+
+    function clearFilters(){
+      ["categoryFilter","brandFilter","sizeFilter","colorFilter","stockFilter"].forEach(x=>document.getElementById(x).value="");
+      ratingFilter.value="0";priceFilter.value="500";priceLabel.textContent="500";searchInput.value="";
+      renderShop();
+    }
+
+    function addToCart(id,qty=1){
+      const item=cart.find(i=>i.id===id);
+      item?item.qty+=qty:cart.push({id,qty});
+      saveState();toast("Added to your shopping bag");
+    }
+
+    function buyNow(id){ addToCart(id);navigate("cart"); }
+    function toggleWish(id){
+      wishlist.includes(id)?wishlist=wishlist.filter(x=>x!==id):wishlist.push(id);
+      saveState();renderHome();
+      if(document.getElementById("shopView").classList.contains("active")) renderShop();
+      toast(wishlist.includes(id)?"Saved to wishlist":"Removed from wishlist");
+    }
+
+    function showWishlist(){
+      navigate("shop");
+      searchInput.value="";
+      const list=products.filter(p=>wishlist.includes(p.id));
+      resultCount.textContent=`${list.length} saved products`;
+      shopGrid.innerHTML=list.length?list.map(productCard).join(""):`<div class="empty" style="grid-column:1/-1"><i data-lucide="heart"></i><h2>Your wishlist is empty</h2></div>`;
+      refreshIcons();
+    }
+
+    function openProduct(id){
+      selectedProduct=products.find(p=>p.id===id); detailQty=1;
+      const p=selectedProduct;
+      const gallery=[p.image,p.image.replace("w=800","w=900"),p.image];
+      document.getElementById("productDetail").innerHTML=`
+        <div style="font-size:12px;color:#777;margin-bottom:25px">Home / ${p.category} / ${p.name}</div>
+        <div class="detail-grid">
+          <div class="gallery">
+            <div class="thumbs">${gallery.map((g,i)=>`<button class="thumb ${i===0?"active":""}" onclick="changeImage('${g}',this)"><img src="${g}" alt=""></button>`).join("")}</div>
+            <div class="main-photo"><img id="mainProductImage" src="${p.image}" alt="${p.name}"></div>
+          </div>
+          <div class="detail-info">
+            <span class="brand">${p.brand}</span><h1>${p.name}</h1>
+            <div class="rating">★★★★★ <span>${p.rating} · ${p.reviews} verified reviews</span></div>
+            <div class="detail-price"><span class="price">${money(p.price)}</span><span class="old-price">${money(p.old)}</span><span class="discount">Save ${discount(p)}%</span></div>
+            <p class="detail-description">A refined expression of contemporary design, crafted with premium materials and thoughtful details. Designed for lasting quality, effortless comfort and an elevated everyday experience.</p>
+            <div class="option-label">SELECT SIZE</div><div class="options">${p.sizes.map((s,i)=>`<button class="option ${i===0?"active":""}" onclick="selectOption(this)">${s}</button>`).join("")}</div>
+            <div class="option-label">SELECT COLOR</div><div class="options">${p.colors.map((c,i)=>`<button title="${c}" class="option color-dot ${i===0?"active":""}" style="background-color:${c.toLowerCase()}" onclick="selectOption(this)"></button>`).join("")}</div>
+            <div class="purchase-row">
+              <div class="qty"><button onclick="changeDetailQty(-1)">−</button><b id="detailQty">1</b><button onclick="changeDetailQty(1)">+</button></div>
+              <button class="btn" onclick="addToCart(${p.id},detailQty)">Add to Cart</button>
+              <button class="btn btn-outline buy-detail" onclick="addToCart(${p.id},detailQty);navigate('checkout')">Buy Now</button>
+            </div>
+            <button class="text-link" onclick="toggleWish(${p.id})">♡ Add to Wishlist</button>
+            <div class="info-card"><h4><i data-lucide="map-pin"></i> Check delivery availability</h4><div class="delivery-check"><input class="control" id="deliveryZip" placeholder="Enter ZIP code"><button class="btn btn-sm" onclick="checkDelivery()">Check</button></div><p id="deliveryResult" style="margin-top:8px"></p></div>
+            <div class="info-card"><h4><i data-lucide="truck"></i> Estimated delivery</h4><p>Arrives in 3–6 business days with tracked shipping.</p></div>
+            <div class="info-card"><h4><i data-lucide="shield-check"></i> Secure payment & easy returns</h4><p>Encrypted payments. Return eligible products within 30 days for a refund.</p></div>
+          </div>
+        </div>
+        <div class="tabs">
+          <div class="tab-buttons"><button class="active">Description</button><button>Customer Reviews (${p.reviews})</button><button>Shipping & Returns</button></div>
+          <div class="tab-content"><p>Every TrendVault piece is independently selected for design, craftsmanship and enduring value. Care instructions and material composition are included with your order.</p><div class="review"><strong>Jordan M. · Verified Buyer</strong><div class="rating">★★★★★</div><p>Exceptional quality and beautifully packaged. It feels even more premium in person.</p></div><div class="review"><strong>Taylor R. · Verified Buyer</strong><div class="rating">★★★★★</div><p>Fast delivery, accurate fit and excellent customer care.</p></div></div>
+        </div>
+        <div class="section-head" style="margin-top:55px"><div><h2>Related Products</h2></div></div>
+        <div class="product-grid">${products.filter(x=>x.id!==p.id).slice(0,4).map(productCard).join("")}</div>`;
+      navigate("product");refreshIcons();
+    }
+
+    function changeImage(src,btn){
+      mainProductImage.src=src;
+      document.querySelectorAll(".thumb").forEach(x=>x.classList.remove("active"));
+      btn.classList.add("active");
+    }
+    function selectOption(btn){
+      [...btn.parentElement.children].forEach(x=>x.classList.remove("active"));
+      btn.classList.add("active");
+    }
+    function changeDetailQty(n){ detailQty=Math.max(1,Math.min(10,detailQty+n));detailQty && (document.getElementById("detailQty").textContent=detailQty); }
+    function checkDelivery(){ deliveryResult.textContent=deliveryZip.value.length>=4?"✓ Available. Estimated delivery in 3–6 business days.":"Please enter a valid ZIP code."; }
+
+    function totals(){
+      const subtotal=cart.reduce((s,i)=>s+(products.find(p=>p.id===i.id)?.price||0)*i.qty,0);
+      const discountValue=coupon?subtotal*.10:0;
+      const delivery=subtotal>=99||subtotal===0?0:9.95;
+      return {subtotal,discount:discountValue,delivery,total:subtotal-discountValue+delivery};
+    }
+
+    function renderCart(){
+      if(!cart.length){
+        cartContent.innerHTML=`<div class="empty"><i data-lucide="shopping-bag"></i><h2>Your bag is empty</h2><p>Discover something exceptional for your collection.</p><button class="btn" onclick="navigate('shop')">Start Shopping</button></div>`;
+        refreshIcons();return;
+      }
+      cartContent.innerHTML=`<div class="cart-layout"><div>${cart.map(i=>{
+        const p=products.find(x=>x.id===i.id);
+        return `<div class="cart-item"><img src="${p.image}" alt="${p.name}"><div><span class="brand">${p.brand}</span><h3>${p.name}</h3><div class="qty" style="width:100px;height:38px"><button onclick="updateQty(${p.id},-1)">−</button><b>${i.qty}</b><button onclick="updateQty(${p.id},1)">+</button></div><button class="remove" onclick="removeCart(${p.id})">Remove</button></div><strong class="price">${money(p.price*i.qty)}</strong></div>`;
+      }).join("")}</div><aside class="summary-card">${summaryHTML()}<button class="btn btn-block" onclick="navigate('checkout')">Proceed to Checkout <i data-lucide="arrow-right"></i></button></aside></div>`;
+      refreshIcons();
+    }
+
+    function summaryHTML(){
+      const t=totals();
+      return `<h2>Order Summary</h2><div class="summary-line"><span>Subtotal</span><b>${money(t.subtotal)}</b></div><div class="summary-line"><span>Discount</span><b style="color:#147a4b">−${money(t.discount)}</b></div><div class="summary-line"><span>Delivery</span><b>${t.delivery?money(t.delivery):"FREE"}</b></div><div class="coupon"><input class="control" id="couponCode" placeholder="Coupon code"><button class="btn btn-sm" onclick="applyCoupon()">Apply</button></div><small style="color:#777">Try VAULT10 for 10% off</small><div class="summary-line summary-total"><span>Total</span><span>${money(t.total)}</span></div>`;
+    }
+
+    function updateQty(id,n){
+      const item=cart.find(i=>i.id===id);item.qty+=n;
+      if(item.qty<1) cart=cart.filter(i=>i.id!==id);
+      saveState();renderCart();
+    }
+    function removeCart(id){ cart=cart.filter(i=>i.id!==id);saveState();renderCart();toast("Item removed"); }
+    function applyCoupon(){
+      if((document.getElementById("couponCode")?.value||"").toUpperCase()==="VAULT10"){coupon="VAULT10";toast("Coupon applied: 10% off");}
+      else toast("Enter a valid coupon code");
+      document.getElementById("cartView").classList.contains("active")?renderCart():renderCheckout();
+    }
+
+    function renderCheckout(){
+      if(!cart.length){toast("Your bag is empty");navigate("shop");return;}
+      checkoutSummary.innerHTML=summaryHTML()+`<button class="btn btn-block" onclick="document.getElementById('checkoutForm').requestSubmit()">Place Secure Order</button><div class="secure-message"><i data-lucide="lock"></i>Your payment and personal information are protected.</div>`;
+      refreshIcons();
+    }
+
+    function placeOrder(e){
+      e.preventDefault();
+      const f=new FormData(e.target), t=totals();
+      const order={
+        id:"TV-"+Date.now().toString().slice(-8),
+        date:new Date().toLocaleDateString(),
+        items:[...cart],total:t.total,
+        customer:f.get("name"),email:f.get("email"),
+        address:`${f.get("address")}, ${f.get("city")}, ${f.get("state")} ${f.get("pin")}`,
+        payment:f.get("payment"),status:"Confirmed",
+        delivery:new Date(Date.now()+5*86400000).toLocaleDateString()
+      };
+      orders.unshift(order);localStorage.setItem("tv_orders",JSON.stringify(orders));
+      cart=[];coupon=null;saveState();renderConfirmation(order);navigate("confirmation");
+    }
+
+    function renderConfirmation(o){
+      confirmationContent.innerHTML=`<div class="confirmation"><div class="success-icon"><i data-lucide="check"></i></div><h1>Order Placed Successfully!</h1><p>Thank you, ${o.customer}. Your order has been confirmed.</p><div class="confirmation-details"><div class="summary-line"><span>Order ID</span><b>${o.id}</b></div><div class="summary-line"><span>Products</span><b>${o.items.length} item(s)</b></div><div class="summary-line"><span>Total amount</span><b>${money(o.total)}</b></div><div class="summary-line"><span>Delivery address</span><b style="max-width:55%;text-align:right">${o.address}</b></div><div class="summary-line"><span>Estimated delivery</span><b>${o.delivery}</b></div></div><div class="hero-buttons" style="justify-content:center"><button class="btn" onclick="navigate('account')">Track Order</button><button class="btn btn-outline" onclick="navigate('shop')">Continue Shopping</button></div></div>`;
+      refreshIcons();
+    }
+
+    function renderAccount(){
+      if(!user){
+        accountContent.innerHTML=`<div class="auth-wrap"><div class="auth-card"><h1 id="authTitle">Welcome back</h1><p id="authText">Sign in to access orders, wishlist and saved addresses.</p><form onsubmit="authenticate(event)"><div class="field" id="nameField" style="display:none"><label>FULL NAME</label><input class="control" id="authName"></div><div class="field"><label>EMAIL ADDRESS</label><input class="control" type="email" id="authEmail" required></div><div class="field"><label>PASSWORD</label><input class="control" type="password" required minlength="4"></div><button class="btn btn-block" id="authButton">Login</button></form><div class="auth-switch"><button onclick="toast('Password reset link sent if the account exists')">Forgot Password?</button><br><br><span id="switchText">New to TrendVault?</span> <button onclick="toggleAuth()" id="switchButton">Sign Up</button></div></div></div>`;
+      } else {
+        accountContent.innerHTML=`<div class="account-grid"><aside class="account-menu"><button class="active"><i data-lucide="package"></i> My Orders</button><button onclick="showWishlist()"><i data-lucide="heart"></i> Wishlist</button><button><i data-lucide="map-pin"></i> Saved Addresses</button><button><i data-lucide="settings"></i> Profile Settings</button><button onclick="logout()"><i data-lucide="log-out"></i> Logout</button></aside><div><div class="dashboard-card"><span class="brand">MY ACCOUNT</span><h1 style="font-family:Manrope">Hello, ${user.name}</h1><p style="color:#777">Track orders and manage your TrendVault profile.</p></div><div class="dashboard-card" style="margin-top:20px"><h2>My Orders & Tracking</h2>${orders.length?orders.map(orderCard).join(""):`<div class="empty"><i data-lucide="package-open"></i><h2>No orders yet</h2><button class="btn" onclick="navigate('shop')">Explore Collection</button></div>`}</div></div></div>`;
+      }
+      refreshIcons();
+    }
+
+    let signupMode=false;
+    function toggleAuth(){
+      signupMode=!signupMode;
+      authTitle.textContent=signupMode?"Create your account":"Welcome back";
+      authText.textContent=signupMode?"Join TrendVault for a personalized shopping experience.":"Sign in to access orders, wishlist and saved addresses.";
+      nameField.style.display=signupMode?"block":"none";
+      authButton.textContent=signupMode?"Sign Up":"Login";
+      switchText.textContent=signupMode?"Already have an account?":"New to TrendVault?";
+      switchButton.textContent=signupMode?"Login":"Sign Up";
+    }
+    function authenticate(e){
+      e.preventDefault();
+      user={name:signupMode?(authName.value||"TrendVault Member"):"TrendVault Member",email:authEmail.value};
+      localStorage.setItem("tv_user",JSON.stringify(user));toast(signupMode?"Account created successfully":"Welcome back");renderAccount();
+    }
+    function logout(){user=null;localStorage.removeItem("tv_user");renderAccount();toast("Signed out");}
+    function orderCard(o){
+      const p=products.find(x=>x.id===o.items[0]?.id)||products[0];
+      return `<div class="order-card"><img src="${p.image}"><div style="flex:1"><b>${o.id}</b><p style="margin:5px 0;color:#777;font-size:12px">${o.date} · ${o.items.length} item(s) · ${money(o.total)}</p><span class="status">${o.status} · Delivery ${o.delivery}</span></div><button class="btn btn-sm btn-outline" onclick="toast('Tracking: Order confirmed and preparing for dispatch')">Track Order</button></div>`;
+    }
+
+    function renderAdmin(){
+      const revenue=orders.reduce((s,o)=>s+o.total,0);
+      adminStats.innerHTML=`<div class="stat"><span>Total Revenue</span><b>${money(revenue)}</b></div><div class="stat"><span>Orders</span><b>${orders.length}</b></div><div class="stat"><span>Products</span><b>${products.length}</b></div><div class="stat"><span>Customers</span><b>${new Set(orders.map(o=>o.email)).size}</b></div>`;
+      adminProducts.innerHTML=products.map(p=>`<tr><td><div style="display:flex;align-items:center;gap:10px"><img src="${p.image}"><b>${p.name}</b></div></td><td>${p.category}</td><td>${money(p.price)}</td><td>${p.stock}</td><td><span class="status">${p.stock?"Active":"Out of stock"}</span></td></tr>`).join("");
+      adminOrders.innerHTML=orders.length?orders.map(o=>`<tr><td><b>${o.id}</b></td><td>${o.customer}</td><td>${money(o.total)}</td><td>${o.payment}</td><td><select class="control" style="height:35px;width:135px" onchange="updateOrder('${o.id}',this.value)"><option>${o.status}</option><option>Processing</option><option>Shipped</option><option>Delivered</option><option>Refunded</option></select></td></tr>`).join(""):`<tr><td colspan="5">No orders created yet.</td></tr>`;
+    }
+
+    function updateOrder(id,status){orders.find(o=>o.id===id).status=status;saveState();toast("Order status updated");}
+    function addAdminProduct(){
+      const name=prompt("Product name:");if(!name)return;
+      products.push({id:Date.now(),name,brand:"TrendVault",category:"Fashion",price:99,old:129,rating:4.5,reviews:0,tag:"New Arrival",stock:10,colors:["Black"],sizes:["S","M","L"],image:"https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80"});
+      saveState();initFilters();renderAdmin();renderHome();toast("Product added to catalog");
+    }
+
+    function subscribe(e){e.preventDefault();toast("Welcome inside the Vault — check your inbox!");e.target.reset();}
+
+    function startCountdown(){
+      let end=Date.now()+36*60*60*1000;
+      setInterval(()=>{
+        let d=end-Date.now(),h=Math.floor(d/3600000),m=Math.floor(d%3600000/60000),s=Math.floor(d%60000/1000);
+        countdown.innerHTML=[[h,"Hours"],[m,"Minutes"],[s,"Seconds"]].map(x=>`<div class="count-box"><b>${String(x[0]).padStart(2,"0")}</b><span>${x[1]}</span></div>`).join("");
+      },1000);
+    }
+
+    renderHome();
+    initFilters();
+    updateBadges();
+    startCountdown();
+    refreshIcons();
+  </script>
+</body>
+</html>
